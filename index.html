@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<title>hue 020</title>
+<button id="colorloop">Colorloop</button>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script>
+var bridgeip = 'hue.q020.nl';
+var username = 'christiaan';
+
+$('#colorloop').on('click', function(e) {
+	var resource = '/groups/0/action';
+	var body = {'effect':'colorloop'};
+
+	send(resource, body);
+});
+
+function send(resource, body) {
+	$.ajax({
+		url: 'http://' + bridgeip + '/api/' + username + resource,
+		type: 'PUT',
+		data: JSON.stringify(body),
+		success: function(result) {
+			console.log(result);
+		},
+		fail: function(result) {
+			console.log(this, result);
+		}
+	});
+}
+</script>
